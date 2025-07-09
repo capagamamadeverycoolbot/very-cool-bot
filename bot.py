@@ -2,6 +2,7 @@ import os
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
+from flask import app
 
 load_dotenv()
 TOKEN = os.getenv("DISCORD_BOT_TOKEN")
@@ -16,4 +17,8 @@ async def on_ready():
         if filename.endswith(".py"):
             await bot.load_extension(f"cogs.{filename[:-3]}")
 
-bot.run(TOKEN)
+app.run(host="0.0.0.0", port=8080)
+
+# at bottom of bot.py
+if __name__ == "__main__":
+    bot.run(os.getenv("DISCORD_BOT_TOKEN"))
